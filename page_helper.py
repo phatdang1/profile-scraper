@@ -32,9 +32,7 @@ def save_img(link,name):
         file.write(response.content)
     return image_path
 
-def navigate():
-    username = 'dangminhphat1@gmail.com'
-    password = 'Tiennguyen381@l'
+def navigate(username, password):
     url1 = 'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin'
     url2 = 'https://www.linkedin.com/company/hubspot/people/'
     driver = webdriver.Chrome(executable_path="driver/chromedriver")
