@@ -77,7 +77,7 @@ def get_profile_info(link_list, driver):
         driver.get(link)
         p_source = driver.page_source
         p_soup = BeautifulSoup(p_source, 'html.parser')
-        p_container = p_soup.find('div', class_="pv-text-details__left-panel")
+        p_container = p_soup.find('div', class_="mt2 relative")
         
         if p_container == None:
             p_container = p_soup.find('section', class_="top-card-layout container-lined overflow-hidden babybear:rounded-[0px]")

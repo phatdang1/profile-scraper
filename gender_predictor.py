@@ -9,5 +9,3 @@ def predict(path):
         return 'female'
     else:
         return 'male'
-n = predict('images/0.jpg')
-print(n)
