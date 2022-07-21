@@ -5,7 +5,7 @@ from to_csv import to_csv
 driver, profiles = navigate()
 # get links of profiles, LinkedIn only show connection info, 
 # I use 20 profiles because of security purpose
-link_list = get_profile_link(profiles, 20)
+link_list = get_profile_link(profiles, 50)
 # get information
 info_list = get_profile_info(link_list, driver)
 header = ['First name', 'Last name', 'Label', 'Location', 'Gender']
