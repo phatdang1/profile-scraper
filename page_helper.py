@@ -33,20 +33,20 @@ def save_img(link,name):
     return image_path
 
 def navigate():
-    username = '1409tp@gmail.com'
+    username = 'dangminhphat1@gmail.com'
     password = 'Tiennguyen381@l'
     url1 = 'https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin'
     url2 = 'https://www.linkedin.com/company/hubspot/people/'
     driver = webdriver.Chrome(executable_path="driver/chromedriver")
     driver.get(url1)
-    sleep(2)
+    sleep(3)
     driver.maximize_window()
     driver.find_element(By.ID, "username").send_keys(username)
     driver.find_element(By.ID, "password").send_keys(password)
-    sleep(2)
+    sleep(3)
     #driver.find_element(By.XPATH, '//*[@id="organic-div"]/form/div[3]/button').click()
     driver.find_element(By.XPATH, "//button[@type='submit']").click()
-    sleep(2)
+    sleep(3)
     driver.get(url2)
     sleep(2)
     # scroll 7 times to get 200 profiles
@@ -77,18 +77,19 @@ def get_profile_info(link_list, driver):
         driver.get(link)
         p_source = driver.page_source
         p_soup = BeautifulSoup(p_source, 'html.parser')
-        p_container = p_soup.find('div', class_="ph5 pb5")
+        p_container = p_soup.find('div', class_="pv-text-details__left-panel")
+        
         if p_container == None:
             p_container = p_soup.find('section', class_="top-card-layout container-lined overflow-hidden babybear:rounded-[0px]")
             name = p_container.find('h1', class_= "top-card-layout__title font-sans text-lg papabear:text-xl font-bold leading-open text-color-text mb-0").text.split(" ")
             label = p_container.find('h2', class_="top-card-layout__headline break-words font-sans text-md leading-open text-color-text").text
             location = p_container.find('span', class_="top-card__subline-item").text
-            img_link = p_container.find('img', class_= "artdeco-entity-image artdeco-entity-image--circle-7 artdeco-entity-image--ghost top-card-layout__entity-image top-card__profile-image top-card__profile-image--real-image onload shadow-color-shadow shadow-[0_4px_12px] border-2 border-solid border-color-surface mt-[-70px] mb-[14px] papabear:border-4 papabear:mt-[-100px] papabear:mb-[18px] lazy-loaded").get('src')
+            
         else:
-            name = p_container.find('h1', class_= "text-heading-xlarge inline t-24 v-align-middle break-words").text.split(" ")
-            label = p_container.find('div', class_="text-body-medium break-words").text
-            location = p_container.find('span', class_="text-body-small inline t-black--light break-words").text
-            img_link = p_container.find('img').get('src')
+            name = p_container.find('h1').text.split(" ")
+            label = p_container.find('div', class_="text-body-medium break-words").get_text().strip()
+            location = p_container.find('span', class_="text-body-small inline t-black--light break-words").get_text().strip()
+        img_link = p_soup.find('div', class_="pv-top-card__non-self-photo-wrapper ml0").find('img').get('src')
         first_name = name[0]
         last_name = name[1]
         
@@ -104,4 +105,6 @@ def get_profile_info(link_list, driver):
             gender = None
         id+=1
         info_list.append([first_name, last_name, label, location, gender])
+        sleep(2)
     return info_list
+    
